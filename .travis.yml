@@ -1,0 +1,34 @@
+language: php
+
+php:
+- 7.3
+
+services:
+- mysql
+
+cache:
+  directories:
+  - node_modules
+  - vendor
+  - "~/.npm"
+git:
+  depth: 3
+
+before_script:
+- cp .env.example .env
+- mysql -e "create database laravel"
+- composer self-update
+- composer install --no-interaction --prefer-source
+- php artisan key:generate
+- php artisan migrate
+
+script:
+- php artisan test
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: gM92IkZPg6tGfFL3cCqgoZVrGxL4tjcTxXPKVIuVk/F5qKX4Ku1Vix+3wo3K1gKrJ+ID7HXK/gHQ05YbZ9g/A5j112TDCfxQ0wQvdPIvb6cYAezKe6IRaaEaOauviZC5LOSshxyzwr3EQCVIff+o6Tgls7uGyw0o92//XI9H56vw0xfqMGH/L2JojzMjXuvTpYXJmd51c2zalSy5ttHo6tWTIHbmmnCB6pJYVb588O+JPjup7jrxllhwy5rzH5jHXfyaYwnDU/jbJiEAU1Yrf31RXUFDfc4QvLgpPYCotLuyQknI99ifRBLO05RNr1CvB16xTplqSQnf8VawkRgQuGRKTfftVyQC0QFTMMnhPw+HIuzv88JadtL482dtcMibvBIXT+Gx7ft4n9R/KQOtR7QkVB1UqemjWctiKPBkr9Cf7Zjwz0JqmDw4gVPZi33YUTQsqRoSovfwulNAdXTFi96skb5UzgNMlXi9d3yNj2AeRIKvCD9KQBrcY3omp4lXk9GDdhmYPWu8My6qFC00KU+N2zRtiJycaX03UIp/0LWcTtFPqpMMxh0+RyOD5kRZ3oZv5tsY+4XCgGYAFuKl+t72RA+4OkWlehVZJvSlmcvcfMYPK6fhH+4dKhNnf6gLqYIlIVPRf32NxzUCkGSTs5B+a06BhyGG/dbwHGVelFI=
+  app: jcmexdev-blog
+  on:
+    repo: jcmexdev/personal-blog
