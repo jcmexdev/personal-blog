@@ -23,11 +23,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -58,4 +54,10 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
