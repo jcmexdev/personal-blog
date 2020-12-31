@@ -8,4 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsToy(User::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }
