@@ -12,8 +12,9 @@
                     </h3>
                     <div class="mt-4">
                         @foreach ($post->tags as $tag)
-                        <a href="" class="inline-block h-6 px-3 bg- bg-{{$tag->color}}-600 text-white rounded-full">
-                            {{$tag->name}}
+                        <a href="{{ route('posts.tag', $tag)}}"
+                           class="inline-block h-6 px-3 bg- bg-{{$tag->color}}-600 text-white rounded-full">
+                            {{ $tag->name }}
                         </a>
                         @endforeach
                     </div>
