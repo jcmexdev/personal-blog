@@ -12,4 +12,11 @@ class PostController extends Controller
         $posts = Post::published()->paginate(8);
         return view('posts.index', compact('posts'));
     }
+
+    public function show(Post $post)
+    {
+        $related = Post::published()->related($post)->get();
+
+        return view('posts.show', compact('post', 'related'));
+    }
 }

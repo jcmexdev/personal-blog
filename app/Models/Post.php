@@ -35,4 +35,9 @@ class Post extends Model
     {
         return $query->whereNotNull('published_at')->orderBy('published_at', 'desc');
     }
+
+    public function scopeRelated($query, $post)
+    {
+        return $query->whereCategoryId($post->category->id)->whereNotIn('id', [$post->id])->take(4);
+    }
 }
