@@ -39,10 +39,7 @@
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         {{-- <a href="#"
                            class="px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-md">Dashboard</a> --}}
-                        @foreach ($categories as $category)
-                        <a href="#"
-                           class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">{{ $category->name }}</a>
-                        @endforeach
+                        @include('partials.navbar')
                     </div>
                 </div>
             </div>
@@ -106,10 +103,7 @@
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             {{-- <a href="#"
                class="block px-3 py-2 text-base font-medium text-white bg-gray-900 rounded-md">Dashboard</a> --}}
-            @foreach ($categories as $category)
-            <a href="#"
-               class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">{{ $category->name }}</a>
-            @endforeach
+            @include('partials.navbar')
         </div>
     </div>
 </nav>

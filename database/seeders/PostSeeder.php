@@ -20,7 +20,7 @@ class PostSeeder extends Seeder
         Storage::deleteDirectory('posts');
         Storage::makeDirectory('posts');
 
-        Post::factory(10)->create()
+        Post::factory(40)->create()
             ->each(function ($post) {
                 Image::factory(1)->create([
                     'imageable_id' => $post,
