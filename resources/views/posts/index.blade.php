@@ -4,17 +4,19 @@
             @foreach ($posts as $post)
             <article class="w-full bg-center bg-cover h-80 @if($loop->first) md:col-span-2 @endif"
                      style="background-image: url({{Storage::url($post->image->url)}});">
-                <div class="flex flex-col justify-center w-full h-full px-8">
-                    <div class="">
+                <div class="flex flex-col justify-center w-full h-full px-8 bg-black bg-opacity-25">
+                    <h3 class="text-4xl font-bold leading-8 text-white">
+                        <a href="{{ route('posts.show', $post) }}">
+                            {{ $post->title }}
+                        </a>
+                    </h3>
+                    <div class="mt-4">
                         @foreach ($post->tags as $tag)
                         <a href="" class="inline-block h-6 px-3 bg- bg-{{$tag->color}}-600 text-white rounded-full">
                             {{$tag->name}}
                         </a>
                         @endforeach
                     </div>
-                    <h3 class="text-4xl font-bold leading-8 text-white">
-                        {{ $post->title }}
-                    </h3>
                 </div>
             </article>
             @endforeach
