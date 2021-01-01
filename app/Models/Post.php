@@ -29,4 +29,10 @@ class Post extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    // SCOPES
+    public function scopePublished($query)
+    {
+        return $query->whereNotNull('published_at')->orderBy('published_at', 'desc');
+    }
 }
