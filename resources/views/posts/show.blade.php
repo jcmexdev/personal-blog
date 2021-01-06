@@ -10,7 +10,7 @@
             {{-- Content --}}
             <div class="lg:col-span-2">
                 <figure>
-                    <img class="object-cover object-center w-full h-80" src="{{ Storage::url($post->image->url) }}"
+                    <img class="object-cover object-center w-full h-80" src="{{ Storage::url($post->cover) }}"
                          alt="">
                 </figure>
                 <div class="mt-4 text-base text-gray-500 md:p-2 lg:p-3.5">
@@ -27,7 +27,7 @@
                     <li class="mb-4">
                         <a class="flex items-center" href="{{ route('posts.show', $post)}}">
                             <img class="object-cover object-center h-20 w-36"
-                                 src="{{ Storage::url($post->image->url)}}"
+                                 src="{{ Storage::url($post->cover)}}"
                                  alt="">
                             <span class="ml-2 text-gray-600">{{ $post->title }}</span>
                         </a>

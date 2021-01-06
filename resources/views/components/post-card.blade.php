@@ -2,7 +2,7 @@
 
 <article class="overflow-hidden bg-white rounded-lg shadow-lg">
     <img class="object-cover object-center w-full h-40 sm:h-52 md:h-64 lg:h-72"
-         src="{{ Storage::url($post->image->url) }}"
+         src="{{ Storage::url($post->cover) }}"
          alt="">
     <div class="p-4">
         <h2 class="text-xl font-bold">

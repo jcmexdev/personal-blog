@@ -25,9 +25,11 @@ class PostFactory extends Factory
     public function definition()
     {
         $title = $this->faker->unique()->sentence(5);
+        $path = 'public/storage/posts';
         return [
             'title' => $title,
             'slug' => Str::slug($title),
+            'cover' => "posts/{$this->faker->image($path, 640, 480, null, false)}",
             'extract' => $this->faker->text(160),
             'body' => $this->faker->text(2000),
             'published_at' => $this->faker->dateTime(),
