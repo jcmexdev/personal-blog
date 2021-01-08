@@ -17,6 +17,7 @@
                     <th>ID</th>
                     <th>title</th>
                     <th>Published</th>
+                    <th>Tags</th>
                     <th class="text-right">Actions</th>
                 </tr>
             </thead>
@@ -26,6 +27,11 @@
                     <td>{{ $post->id }}</td>
                     <td>{{ $post->title }}</td>
                     <td>{{ optional($post->published_at)->format('d-m-Y') }}</td>
+                    <td>
+                        @foreach ($post->tags as $tag)
+                        <span class="badge badge-secondary">{{ $tag->name }}</span>
+                        @endforeach
+                    </td>
                     <td class="d-flex justify-content-end">
                         <a href="{{ route('admin.posts.edit', $post)}}"
                            class="btn btn-primary btn-sm">Editar</a>
@@ -51,7 +57,7 @@
     $().ready(()=>{
         $('table').DataTable({
             "columnDefs": [
-                { "orderable": false, "targets": 3 }
+                { "orderable": false, "targets": 4 }
             ]
         });
     });
