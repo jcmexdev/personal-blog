@@ -241,6 +241,12 @@ return [
         ],
         ['header' => 'ADMINISTRATION'],
         [
+            'text' => 'Posts',
+            'route'  => 'admin.posts.index',
+            'icon' => 'fab fa-fw fa-buffer',
+            'active' => ['admin/posts*']
+        ],
+        [
             'text' => 'Categories',
             'route'  => 'admin.categories.index',
             'icon' => 'fab fa-fw fa-buffer',
