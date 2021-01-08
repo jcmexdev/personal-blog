@@ -9,6 +9,7 @@
 @section('content')
 @include('partials.session')
 {!! Form::model($post, ['route' => ['admin.posts.update', $post], 'method' => 'put']) !!}
+{{-- POST GENERALS --}}
 <div class="row">
     <div class="col-12">
         <div class="card card-primary">
@@ -68,26 +69,54 @@
     </div>
 </div>
 
+{{-- POST IMAGES --}}
+<div class="row">
+    <div class="col-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Post Images</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                           class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- POST BODY --}}
 <div class="mt-3 row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                {!! Form::submit('Update Post', ['class' => 'btn btn-primary']) !!}
+                {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
+                {!! Form::submit('Update Post', ['class' => 'btn btn-primary mt-4']) !!}
             </div>
         </div>
     </div>
 </div>
 {!! Form::close() !!}
 @stop
+
+
 @section('plugins.Select2', true)
 @section('js')
+<script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
 <script>
     $(document).ready(function() {
+        // TAGS
         $('#tags').select2({
             multiple: true,
             width: '100%',
             allowClear: true
         });
+
+        // EDITOR
+        CKEDITOR.replace( 'body' );
     });
 </script>
 @stop
