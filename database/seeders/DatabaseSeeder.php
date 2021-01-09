@@ -16,10 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
         $this->call(UserSeeder::class);
         Category::factory(5)->create();
         Tag::factory(10)->create();
-        $this->call(PostSeeder::class);
+        // $this->call(PostSeeder::class);
     }
 }
