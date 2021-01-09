@@ -113,10 +113,15 @@
                         <div id="dropzone" class="dropzone"></div>
                     </div>
                     @forelse ($post->images as $image)
-                    <div class="mt-3 col-12 col-md-3 post-image">
+                    <div class="mt-3 col-12 col-md-3 post-image" id="deletable-{{$image->id}}">
                         <img src="{{ $image->url }}"
                              class="rounded img-fluid image-item"
-                             alt="{{$image->alt}}">
+                             alt="Image for post">
+                        <button type="button" role="button" data-id="{{ $image->id }}"
+                                class="deletable btn btn-danger btn-sm position-absolute"
+                                style="right: 24px; top: 8px;">
+                            <i class="fa fa-times"></i>
+                        </button>
                     </div>
                     @empty
                     <div id="no-images" class="col-12 col-md-9 d-flex justify-content-center align-items-center">
@@ -145,6 +150,7 @@
 
 
 @section('plugins.Select2', true)
+@section('plugins.Sweetalert2', true)
 @section('js')
 <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('vendor/dropzone/dropzone.js') }}"></script>
@@ -174,23 +180,63 @@
         });
     });
 
-    // COPY TO CLIPBOARD
-    const handleCopyToClipboard = () => {
-        $('.image-item').on('click', function(e) {
-            let copyText = this.src;
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
 
-            var textarea = document.createElement("textarea");
+    // COPY TO CLIPBOARD
+    $(window).on('click', (e) => {
+            if(!e.target.classList.contains('image-item')) return;
+            const copyText = e.target.src;
+            let textarea = document.createElement("textarea");
             textarea.textContent = copyText;
             textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
             document.body.appendChild(textarea);
             textarea.select();
             document.execCommand("copy");
             document.body.removeChild(textarea);
-            alert('url text copied');
-        });
-    }
+            Toast.fire({
+                type: 'success',
+                title: 'Url copied to clipboard'
+            });
+    });
 
-    handleCopyToClipboard();
+    // DELETE IMAGE
+    $(window).on('click', function(e){
+        if(!e.target.classList.contains('deletable')) return;
+
+        if(!window.confirm('¿Delete Image?')) return;
+
+        const id = e.target.dataset.id;
+
+        let route = `{{ route('admin.images.destroy') }}`;
+        $.ajax(route, {
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            method:'DELETE',
+            data: {
+                id: id
+            },
+            success: function(res) {
+                if(res.was_deleted) {
+                    $(`#deletable-${id}`).remove();
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Image was deleted'
+                    });
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Something unexpected has happened :('
+                    });
+                }
+            }
+        });
+    });
 
      // DROPZONE
      Dropzone.autoDiscover = false;
@@ -215,16 +261,21 @@
     });
 
     myDropZone.on('success', function(res){
-        let {id, path} = JSON.parse(res.xhr.response);
+        let {id, url} = JSON.parse(res.xhr.response);
         $('#no-images').remove();
-        // $('.dz-filename:last > span').text(path);
+        $('.dz-filename:last > span').text(url);
         $('#images').append(`
-            <div class="mt-3 col-12 col-md-3 post-image">
-                <img src="${path}" class="rounded img-fluid image-item">
+            <div class="mt-3 col-12 col-md-3 post-image" id="deletable-${id}">
+                <img src="${url}"
+                        class="rounded img-fluid image-item"
+                        alt="Image for post">
+                <button type="button" role="button" data-id="${id}"
+                        class="deletable btn btn-danger btn-sm position-absolute"
+                        style="right: 24px; top: 8px;">
+                    <i class="fa fa-times"></i>
+                </button>
             </div>
         `);
-        handleCopyToClipboard();
     })
-
 </script>
 @stop
