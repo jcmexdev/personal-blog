@@ -5,11 +5,12 @@
 
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
-	// config.language = 'fr';
+	config.language = 'es';
     // config.uiColor = '#AADC6E';
     config.language = 'es';
 	config.height = 400;
     config.toolbarCanCollapse = true;
+    config.skin = 'moono-dark';
 
     config.toolbarGroups = [
 		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
@@ -27,8 +28,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'tools', groups: [ 'tools' ] },
 		{ name: 'others', groups: [ 'others' ] },
 		{ name: 'about', groups: [ 'about' ] }
-	];
+    ];
 
 	config.removeButtons = 'ExportPdf,Preview,Print,Templates,NewPage,Cut,Copy,Paste,PasteText,PasteFromWord,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Flash,HorizontalRule,PageBreak,Anchor';
-
 };

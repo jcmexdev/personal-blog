@@ -2,6 +2,29 @@
 
 @section('title', 'Post | Edit')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('vendor/dropzone/dropzone.css') }}">
+<style>
+    .dropzone {
+        border-radius: 8px;
+        border: 3px dashed #007bff;
+        color: #007bff;
+        padding: 0;
+        height: 160px;
+    }
+
+    .post-image {
+        height: 160px;
+    }
+
+    .post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+@endsection
+
 @section('content_header')
 <h1>Post Update</h1>
 @stop
@@ -26,11 +49,13 @@
                     <div class="col-12 col-md-8">
                         <div class="form-group">
                             {!! Form::label('title', 'Title') !!}
-                            {!! Form::text('title', null, ['class' => 'form-control', 'required' => true]) !!}
+                            {!! Form::text('title', null, ['class' => 'form-control', 'required' => true, 'maxlength' =>
+                            60]) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('extract', 'Extract') !!}
-                            {!! Form::textarea('extract', null, ['class' => 'form-control', 'rows' => 3]) !!}
+                            {!! Form::textarea('extract', null, ['class' => 'form-control', 'rows' => 3,
+                            'maxlength' => 165]) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('cover', 'Cover Url') !!}
@@ -82,7 +107,22 @@
                 </div>
             </div>
             <div class="card-body">
-
+                <div class="row" id="images">
+                    <div class="mt-3 col-12 col-md-3">
+                        <div id="dropzone" class="dropzone"></div>
+                    </div>
+                    @forelse ($post->images as $image)
+                    <div class="mt-3 col-12 col-md-3 post-image">
+                        <img src="{{ $image->url }}"
+                             class="rounded img-fluid"
+                             alt="{{$image->alt}}">
+                    </div>
+                    @empty
+                    <div id="no-images" class="col-12 col-md-9 d-flex justify-content-center align-items-center">
+                        Aun no hay imágenes cargadas para este post
+                    </div>
+                    @endforelse
+                </div>
             </div>
         </div>
     </div>
@@ -106,6 +146,10 @@
 @section('plugins.Select2', true)
 @section('js')
 <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('vendor/dropzone/dropzone.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-maxlength/1.10.0/bootstrap-maxlength.min.js"
+        integrity="sha512-04L+TAgzlDAaUpaEGriEBg/qEryUjw4GNL/FkxA3h621EFPycccO2Y8vNhvid9UhgGC/9+MHLAFwGythpvOAAQ=="
+        crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
         // TAGS
@@ -117,6 +161,50 @@
 
         // EDITOR
         CKEDITOR.replace( 'body' );
+
+        // MAX LENGTH
+        $('[maxlength]').maxlength({
+            alwaysShow: true,
+            warningClass: "badge badge-success",
+            limitReachedClass: "badge badge-danger",
+            preText: 'write ',
+            separator: ' of ',
+            postText: ' chars.'
+        });
     });
+
+     // DROPZONE
+     Dropzone.autoDiscover = false;
+    let myDropZone = new Dropzone("#dropzone", {
+        createImageThumbnails: false,
+        url:"{{ route('admin.images.store', $post) }}",
+        dictDefaultMessage:"pick to select an image",
+        maxFilesize: 2,
+        paramName:'image',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        thumbnailMethod: 'contain'
+    });
+
+    myDropZone.on('error', function(file, res){
+        $('.dz-error-message:last > span').text(res.errors.image[0]);
+    })
+
+    myDropZone.on("complete", function(file) {
+        myDropZone.removeFile(file);
+    });
+
+    myDropZone.on('success', function(res){
+        let {id, path} = JSON.parse(res.xhr.response);
+        $('#no-images').remove();
+        // $('.dz-filename:last > span').text(path);
+        $('#images').append(`
+            <div class="mt-3 col-12 col-md-3 post-image">
+                <img src="${path}" class="rounded img-fluid">
+            </div>
+        `);
+    })
+
 </script>
 @stop
