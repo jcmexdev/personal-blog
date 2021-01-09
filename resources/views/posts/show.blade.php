@@ -10,11 +10,11 @@
             {{-- Content --}}
             <div class="lg:col-span-2">
                 <figure>
-                    <img class="object-cover object-center w-full h-80" src="{{ Storage::url($post->cover) }}"
+                    <img class="object-cover object-center w-full h-80" src="{{ $post->cover }}"
                          alt="">
                 </figure>
                 <div class="mt-4 text-base text-gray-500 md:p-2 lg:p-3.5">
-                    {{ $post->body }}
+                    {!! $post->body !!}
                 </div>
             </div>
             {{-- Related --}}

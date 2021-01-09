@@ -13,7 +13,7 @@ class PostUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class PostUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => ['required', 'max:65'],
+            'extract' => ['required_with:published_at', 'max:165'],
+            'category_id' => ['required_with:published_at', 'exists:categories,id'],
+            'body' => ['required_with:published_at'],
+            'cover' => ['required_with:published_at', 'string', 'max:255'],
+            'published_at' => ['nullable'],
+            'tags' => ['array']
         ];
     }
 }

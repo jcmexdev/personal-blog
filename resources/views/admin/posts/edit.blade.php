@@ -84,6 +84,7 @@
                             {!! Form::label('tags', 'Tags') !!}
                             {!! Form::select('tags', $tags, $tagsSelected, ['class' => 'select2bs4',
                             'multiple' => 'multiple', 'data-placeholder' => 'Choose tags',
+                            'name'=>'tags[]',
                             'style' => 'width: 100%;']) !!}
                             @error('tags') <span class="text-danger">{{$message}}</span> @enderror
                         </div>
@@ -114,7 +115,7 @@
                     @forelse ($post->images as $image)
                     <div class="mt-3 col-12 col-md-3 post-image">
                         <img src="{{ $image->url }}"
-                             class="rounded img-fluid"
+                             class="rounded img-fluid image-item"
                              alt="{{$image->alt}}">
                     </div>
                     @empty
@@ -173,6 +174,24 @@
         });
     });
 
+    // COPY TO CLIPBOARD
+    const handleCopyToClipboard = () => {
+        $('.image-item').on('click', function(e) {
+            let copyText = this.src;
+
+            var textarea = document.createElement("textarea");
+            textarea.textContent = copyText;
+            textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert('url text copied');
+        });
+    }
+
+    handleCopyToClipboard();
+
      // DROPZONE
      Dropzone.autoDiscover = false;
     let myDropZone = new Dropzone("#dropzone", {
@@ -201,9 +220,10 @@
         // $('.dz-filename:last > span').text(path);
         $('#images').append(`
             <div class="mt-3 col-12 col-md-3 post-image">
-                <img src="${path}" class="rounded img-fluid">
+                <img src="${path}" class="rounded img-fluid image-item">
             </div>
         `);
+        handleCopyToClipboard();
     })
 
 </script>

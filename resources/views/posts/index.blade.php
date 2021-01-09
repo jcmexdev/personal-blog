@@ -3,7 +3,7 @@
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             @foreach ($posts as $post)
             <article class="w-full bg-center bg-cover h-80 @if($loop->first) md:col-span-2 @endif"
-                     style="background-image: url({{Storage::url($post->cover)}});">
+                     style="background-image: url({{ $post->cover }});">
                 <div class="flex flex-col justify-center w-full h-full px-8 bg-black bg-opacity-25">
                     <h3 class="text-4xl font-bold leading-8 text-white">
                         <a href="{{ route('posts.show', $post) }}">
