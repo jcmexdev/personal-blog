@@ -2,7 +2,7 @@
 
 <article class="overflow-hidden bg-white rounded-lg shadow-lg">
     <img class="object-cover object-center w-full h-40 sm:h-52 md:h-64 lg:h-72"
-         src="{{ Storage::url($post->image->url) }}"
+         src="{{ $post->cover }}"
          alt="">
     <div class="p-4">
         <h2 class="text-xl font-bold">
@@ -15,7 +15,7 @@
             @foreach ($post->tags as $tag)
             <small>
                 <a href="{{ route('posts.tag', $tag) }}"
-                   class="inline-block px-3 py-1 mr-2 text-gray-700 bg-gray-200 rounded-full">{{$tag->name }}</a>
+                   class="inline-block px-3 py-1 mr-2 text-white bg-{{$tag->color}}-600 rounded-full">{{$tag->name }}</a>
             </small>
             @endforeach
         </div>

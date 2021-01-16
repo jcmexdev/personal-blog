@@ -2,14 +2,41 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     use HasFactory;
+    use Sluggable;
 
+    // CONFIG
 
+    protected $guarded = ['id'];
+    protected $dates = ['published_at'];
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title',
+                'onUpdate' => true
+            ]
+        ];
+    }
+
+    /**
+     * Set the key value for binding model
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    // RELATIONS
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -25,9 +52,9 @@ class Post extends Model
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
-    public function image()
+    public function images()
     {
-        return $this->morphOne(Image::class, 'imageable');
+        return $this->morphMany(Image::class, 'imageable');
     }
 
     // SCOPES

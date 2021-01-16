@@ -241,6 +241,12 @@ return [
         ],
         ['header' => 'ADMINISTRATION'],
         [
+            'text' => 'Posts',
+            'route'  => 'admin.posts.index',
+            'icon' => 'fab fa-fw fa-buffer',
+            'active' => ['admin/posts*']
+        ],
+        [
             'text' => 'Categories',
             'route'  => 'admin.categories.index',
             'icon' => 'fab fa-fw fa-buffer',
@@ -415,6 +421,21 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'Codesnnipet' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js',
                 ],
             ],
         ],
