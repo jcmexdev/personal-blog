@@ -424,6 +424,21 @@ return [
                 ],
             ],
         ],
+        'Codesnnipet' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js',
+                ],
+            ],
+        ],
     ],
 
     /*

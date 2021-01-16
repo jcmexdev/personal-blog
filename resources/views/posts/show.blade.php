@@ -27,7 +27,7 @@
                     <li class="mb-4">
                         <a class="flex items-center" href="{{ route('posts.show', $post)}}">
                             <img class="object-cover object-center h-20 w-36"
-                                 src="{{ Storage::url($post->cover)}}"
+                                 src="{{ $post->cover }}"
                                  alt="">
                             <span class="ml-2 text-gray-600">{{ $post->title }}</span>
                         </a>

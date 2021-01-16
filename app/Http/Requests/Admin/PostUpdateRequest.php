@@ -26,9 +26,9 @@ class PostUpdateRequest extends FormRequest
         return [
             'title' => ['required', 'max:65'],
             'extract' => ['required_with:published_at', 'max:165'],
-            'category_id' => ['required_with:published_at', 'exists:categories,id'],
+            'category_id' => ['required_with:published_at'],
             'body' => ['required_with:published_at'],
-            'cover' => ['required_with:published_at', 'string', 'max:255'],
+            'cover' => ['required_with:published_at'],
             'published_at' => ['nullable'],
             'tags' => ['array']
         ];

@@ -31,6 +31,16 @@
 
 @section('content')
 @include('partials.session')
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
 {!! Form::model($post, ['route' => ['admin.posts.update', $post], 'method' => 'put']) !!}
 {{-- POST GENERALS --}}
 <div class="row">
@@ -139,7 +149,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
+                <textarea name="body" id="body">{{ $post->body }}</textarea>
                 {!! Form::submit('Update Post', ['class' => 'btn btn-primary mt-4']) !!}
             </div>
         </div>
@@ -151,6 +161,7 @@
 
 @section('plugins.Select2', true)
 @section('plugins.Sweetalert2', true)
+@section('plugins.Codesnnipet', true)
 @section('js')
 <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('vendor/dropzone/dropzone.js') }}"></script>
@@ -159,6 +170,7 @@
         crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
+
         // TAGS
         $('#tags').select2({
             multiple: true,
@@ -178,6 +190,9 @@
             separator: ' of ',
             postText: ' chars.'
         });
+
+        // HIGHLIGHT
+        hljs.initHighlightingOnLoad();
     });
 
     const Toast = Swal.mixin({
@@ -231,7 +246,7 @@
                 } else {
                     Toast.fire({
                         type: 'error',
-                        title: 'Something unexpected has happened :('
+                        title: 'Something unexpected has happened'
                     });
                 }
             }
