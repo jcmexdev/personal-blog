@@ -5,15 +5,15 @@
             <article class="w-full bg-center bg-cover h-80 @if($loop->first) md:col-span-2 @endif"
                      style="background-image: url({{ $post->cover }});">
                 <div class="flex flex-col justify-center w-full h-full px-8 bg-black bg-opacity-50">
-                    <h3 class="text-4xl font-bold leading-8 text-white">
-                        <a href="{{ route('posts.show', $post) }}">
+                    <h3 class="text-4xl font-bold leading-10 text-white">
+                        <a href="{{ route('posts.show', $post) }}" class="leading-7">
                             {{ $post->title }}
                         </a>
                     </h3>
                     <div class="mt-4">
                         @foreach ($post->tags as $tag)
                         <a href="{{ route('posts.tag', $tag)}}"
-                           class="inline-block h-6 px-3 bg- bg-{{$tag->color}}-600 text-white rounded-full">
+                           class="inline-block h-6 px-4 mb-3 bg- bg-{{$tag->color}}-600 text-white rounded-full">
                             {{ $tag->name }}
                         </a>
                         @endforeach
