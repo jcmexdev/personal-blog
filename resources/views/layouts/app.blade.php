@@ -12,16 +12,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet"
-      href="{{ asset('vendor/highlightjs/default.min.css') }}">
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/monokai.min.css">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     @livewireStyles
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
-    <script src="{{ asset('vendor/highlightjs/highlight.min.js') }}" defer></script>
-    <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js" defer></script>
+    <script defer>
         document.addEventListener('DOMContentLoaded', (event) => {
             document.querySelectorAll('pre code').forEach((block) => {
                 hljs.highlightBlock(block);
