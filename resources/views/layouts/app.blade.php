@@ -18,7 +18,7 @@
     <meta property="og:title" content="@yield('fb_title', 'Juan Carlos García Esquivel')" />
     <meta property="og:description"
         content="@yield('fb_description', 'Blog sobre programación, diseño web y desarrollo profesional.')" />
-    <meta property="og:image" content="@yield('fb_image',url('img/jcmexdev-cover.png'))" />
+    <meta property="og:image" content="@yield('fb_image',secure_url('img/jcmexdev-cover.png'))" />
     <meta property="og:image:alt" content="cover">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="628">
@@ -30,7 +30,7 @@
     <meta name="twitter:title" content="@yield('tw_title', 'Juan Carlos García Esquivel')">
     <meta name="twitter:description"
         content="@yield('tw_description', 'Hola soy Juan Carlos y te doy la bienvenida a mi blog donde encontrarás artículos sobre programación, diseño web y desarrollo profesional.')">
-    <meta name="twitter:image" content="@yield('tw_image', url('img/jcmexdev-cover.png'))">
+    <meta name="twitter:image" content="@yield('tw_image', secure_url('img/jcmexdev-cover.png'))">
 
     <title>@yield('title', config('app.name').' | Blog')</title>
 
