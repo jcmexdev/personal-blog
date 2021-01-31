@@ -4,6 +4,7 @@
 
 .hljs {
   border-radius: 6px;
+  @apply mb-8;
 }
 
 @media (min-width: 640px) {
@@ -54,10 +55,10 @@
     }
 
     .post p {
-        @apply mt-2 mb-4;
+        @apply mt-2 mb-4 text-justify;
     }
 
     .post img {
-        @apply my-4 mx-auto shadow-lg rounded;
+        @apply my-8 mx-auto shadow-lg rounded;
     }
 }
